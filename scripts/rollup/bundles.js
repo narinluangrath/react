@@ -702,6 +702,25 @@ const bundles = [
     externals: ['ReactNativeInternalFeatureFlags'],
   },
 
+  /******* React Devtools Shared *******/
+  {
+    bundleTypes: [
+      NODE_DEV,
+      NODE_PROD,
+      FB_WWW_DEV,
+      FB_WWW_PROD,
+      FB_WWW_PROFILING,
+      RN_FB_DEV,
+      RN_FB_PROD,
+      RN_FB_PROFILING,
+    ],
+    moduleType: ISOMORPHIC,
+    entry: 'react-devtools-shared',
+    // global: 'Scheduler',
+    // externals: ['ReactNativeInternalFeatureFlags'],
+  },
+
+
   /******* React Scheduler Mock (experimental) *******/
   {
     bundleTypes: [
