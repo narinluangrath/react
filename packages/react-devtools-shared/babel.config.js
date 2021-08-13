@@ -16,36 +16,35 @@ function validateVersion(version) {
   throw new Error('Suspicious browser version in manifest: ' + version);
 }
 
-module.exports = api => {
-  const isTest = api.env('test');
+// Modified to follow function signature of babel property in bundles.js
+module.exports = opts => {
   const targets = {};
-  if (isTest) {
-    targets.node = 'current';
-  } else {
-    targets.chrome = minChromeVersion.toString();
-    targets.firefox = minFirefoxVersion.toString();
+  targets.chrome = minChromeVersion.toString();
+  targets.firefox = minFirefoxVersion.toString();
 
-    let additionalTargets = process.env.BABEL_CONFIG_ADDITIONAL_TARGETS;
-    if (additionalTargets) {
-      additionalTargets = JSON.parse(additionalTargets);
-      for (const target in additionalTargets) {
-        targets[target] = additionalTargets[target];
-      }
+  let additionalTargets = process.env.BABEL_CONFIG_ADDITIONAL_TARGETS;
+  if (additionalTargets) {
+    additionalTargets = JSON.parse(additionalTargets);
+    for (const target in additionalTargets) {
+      targets[target] = additionalTargets[target];
     }
   }
   const plugins = [
-    ['@babel/plugin-transform-flow-strip-types'],
-    ['@babel/plugin-proposal-class-properties', {loose: false}],
+    // These plugin is already included in the default plugins in rollup/build.js
+    // Duplicates will cause babel to error
+
+    // ['@babel/plugin-transform-flow-strip-types'],
+    // ['@babel/plugin-proposal-class-properties', {loose: false}],
   ];
   if (process.env.NODE_ENV !== 'production') {
     plugins.push(['@babel/plugin-transform-react-jsx-source']);
   }
-  return {
-    plugins,
-    presets: [
+  return Object.assign({}, {
+    plugins: opts.plugins.concat(plugins),
+    presets: opts.presets.concat([
       ['@babel/preset-env', {targets}],
       '@babel/preset-react',
       '@babel/preset-flow',
-    ],
-  };
+    ]),
+  });
 };

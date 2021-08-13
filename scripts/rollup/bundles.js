@@ -718,6 +718,7 @@ const bundles = [
     entry: 'react-devtools-shared',
     global: 'DevtoolsShared',
     externals: ['react'],
+    babel: require('../../packages/react-devtools-shared/babel.config'),
   },
 
 
