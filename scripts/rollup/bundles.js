@@ -716,8 +716,8 @@ const bundles = [
     ],
     moduleType: ISOMORPHIC,
     entry: 'react-devtools-shared',
-    // global: 'Scheduler',
-    // externals: ['ReactNativeInternalFeatureFlags'],
+    global: 'DevtoolsShared',
+    externals: ['react'],
   },
 
 
