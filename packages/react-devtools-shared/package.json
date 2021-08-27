@@ -1,7 +1,7 @@
 {
-  "private": true,
+  "private": false,
   "name": "react-devtools-shared",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "devDependencies": {
     "react-15": "npm:react@^15",
     "react-dom-15": "npm:react-dom@^15"
